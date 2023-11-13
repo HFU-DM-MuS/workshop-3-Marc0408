@@ -85,7 +85,6 @@ class MultipleCirclesBouncingPanel extends JPanel {
 	public Dimension getPreferredSize() {
 		return new Dimension(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
 	}
-
 	private double getRandomValueInRange(double minValue, double maxValue) {
 		// from Java random API documentation
 		// a random factor between 0 and 1 as Math.random() returns only values smaller
@@ -101,6 +100,8 @@ class MultipleCirclesBouncingPanel extends JPanel {
 
 		super.paintComponent(g);
 
+		Constants.WINDOW_WIDTH = this.getWidth();
+		Constants.WINDOW_HEIGHT = this.getHeight();
 		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
 
@@ -108,7 +109,7 @@ class MultipleCirclesBouncingPanel extends JPanel {
 		double deltaTime = time - lastFrameTime;
 		lastFrameTime = time;
 
-		for (int i = 1; i < numBalls; i++) {
+		for (int i = 0; i < numBalls; i++) {
 
 			currentX[i] = currentX[i] + (vX[i] * deltaTime);
 			currentY[i] = currentY[i] + (vY[i] * deltaTime);
@@ -125,7 +126,7 @@ class MultipleCirclesBouncingPanel extends JPanel {
 				currentX[i] = currentX[i] + 1;
 			}
 
-			if (currentY[i] >= Constants.WINDOW_HEIGHT) {
+			if (currentY[i] >= Constants.WINDOW_HEIGHT - diameter) {
 				// Object has hit the floor
 				vY[i] = -vY[i];
 				currentY[i] = currentY[i] - 1;
